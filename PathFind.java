@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -9,13 +10,21 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+
+
 public class PathFind {
 	//set-up frame and panel
 	int HI=650;
-	int WID=800;
+	int WID=850;
+	int cells=20;
+	int MSIZE=600;
+	int CSIZE=MSIZE/cells;
 	JFrame frame;
 	JPanel menu=new JPanel();
+	//JPanel main=new JPanel();
 	
+	Node[][] map;
+	Map canvas;
 	//buttons
 	JButton searchB=new JButton("Search");
 	JButton resetB=new JButton("Reset");
@@ -37,6 +46,11 @@ public class PathFind {
 	
 	
 	
+	public void paintComponent() { //drawing nodes
+		
+		
+	}
+	
 	
 	
 	
@@ -49,11 +63,26 @@ public class PathFind {
 	
 	
 	public PathFind() {
+		clearMap();
 		run();
+		
 	}
 	
 	
 	
+
+	private void clearMap() {
+		// TODO Auto-generated method stub
+		map=new Node[cells][cells];
+		for(int x=0;x<cells;x++) {
+			for(int y=0;y<cells;y++) {
+				map[x][y]= new Node(3,0,0);
+			}
+		}
+	}
+
+
+
 
 	private void run() {
 		//initialize frame
@@ -73,6 +102,14 @@ public class PathFind {
 		int space=25;
 		int fromEdge=40;
 		int buff=45;
+		
+		//main setup
+	//	main.setLayout(null);
+	//	main.setBorder(BorderFactory.createTitledBorder(bor, "Map"));
+	//	main.setBounds(235, 10, 555, 610);
+	//
+		
+		
 		
 		
 		//BUTTONS
@@ -111,6 +148,13 @@ public class PathFind {
 		
 		//add menu to frame
 		frame.getContentPane().add(menu);
+		//frame.getContentPane().add(main);
+		
+		
+		canvas=new Map();
+		canvas.setBounds(230, 10, MSIZE+1, MSIZE+1);
+		//canvas.setBorder(bor);
+		frame.getContentPane().add(canvas);
 		
 	}
 
@@ -122,6 +166,28 @@ public class PathFind {
 
 	}
 
+	
+	
+	public class Map extends JPanel{
+
+		public void paintComponent(Graphics g) {
+			/*g.setColor(Color.black);
+			g.fillRect(235, 10, 550, 605);
+			g.setColor(Color.white);*/
+			for(int x=0;x<cells;x++) {
+				for(int y=0;y<cells;y++) {
+					g.setColor(Color.black);
+					g.drawRect(x*CSIZE,y*CSIZE,CSIZE,CSIZE);
+					g.setColor(Color.white);
+				}
+			}
+		}
+		
+		
+		
+		
+	}
+	
 	
 	
 	
